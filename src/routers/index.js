@@ -5,7 +5,7 @@ import TestBug from '@/pages/TestBug.vue';
 
 const routes = [
     {
-        path: "/",
+        path: "/home",
         name: "TestPage",
         component: TestPage,
     },
@@ -15,7 +15,7 @@ const routes = [
         component: TestBug,
     },
     {
-        path: "/home",
+        path: "/",
         name: "HomePage",
         component: HomePage,
     },
