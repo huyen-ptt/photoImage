@@ -5,7 +5,10 @@
         <div class="column bao m-3" v-for="item in imageList" :key="item.id">
           <div class="bao" @click="openDialog(item)">
             <img :src="item.image" class="img img-big">
-            <i class="fa-regular fa-heart tim"></i>
+            <i class="fa-regular fa-heart tim"
+               :class="{ 'red-heart': item.isLiked }"
+               @click.stop="toggleLike(item)">
+            </i>
             <i class="fa-solid fa-plus them"></i>
             <div class="khung-avt">
               <img class="avt" :src="item.avt"/>
@@ -21,7 +24,10 @@
         <div class="column bao m-3" v-for="item in imageList2" :key="item.id">
           <div class="bao" @click="openDialog(item)">
             <img :src="item.image" class="img img-big">
-            <i class="fa-regular fa-heart tim"></i>
+            <i class="fa-regular fa-heart tim"
+               :class="{ 'red-heart': item.isLiked }"
+               @click.stop="toggleLike(item)">
+            </i>
             <i class="fa-solid fa-plus them"></i>
             <div class="khung-avt">
               <img class="avt" :src="item.avt"/>
@@ -38,7 +44,10 @@
         <div class="column bao m-3" v-for="item in imageList3" :key="item.id">
           <div class="bao" @click="openDialog(item)">
             <img :src="item.image" class="img img-big">
-            <i class="fa-regular fa-heart tim"></i>
+            <i class="fa-regular fa-heart tim"
+               :class="{ 'red-heart': item.isLiked }"
+               @click.stop="toggleLike(item)">
+            </i>
             <i class="fa-solid fa-plus them"></i>
             <div class="khung-avt">
               <img class="avt" :src="item.avt"/>
@@ -65,68 +74,82 @@
               </div>
             </div>
             <div class="bao-tim">
-              <i class="fa-regular fa-heart tim-modal"></i>
+              <!--              <i class="fa-regular fa-heart tim-modal"></i>-->
+              <i class="fa-regular fa-heart tim-modal"
+                 :class="{ 'red-heart': selectedItem.isLiked }"
+                 @click.stop="toggleLike(selectedItem)">
+              </i>
             </div>
             <div class="bao-them">
               <i class="fa-solid fa-plus them-modal"></i>
             </div>
           </div>
           <img class="img-modal" :src="selectedItem.image">
+          <div>
+            Views : {{ selectedItem.views }}
+          </div>
           <h2>
             Related photos
           </h2>
-         <div class="container">
-           <div>
-             <div class="column bao m-3" v-for="item in imageList" :key="item.id">
-               <div class="bao" @click="openDialog(item)">
-                 <img :src="item.image" class="img img-big">
-                 <i class="fa-regular fa-heart tim"></i>
-                 <i class="fa-solid fa-plus them"></i>
-                 <div class="khung-avt">
-                   <img class="avt" :src="item.avt"/>
-                   <div>
-                     <div>{{ item.name }}</div>
-                     <div class="title">{{ item.title }}</div>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div>
-             <div class="column bao m-3" v-for="item in imageList2" :key="item.id">
-               <div class="bao" @click="openDialog(item)">
-                 <img :src="item.image" class="img img-big">
-                 <i class="fa-regular fa-heart tim"></i>
-                 <i class="fa-solid fa-plus them"></i>
-                 <div class="khung-avt">
-                   <img class="avt" :src="item.avt"/>
-                   <div>
-                     <div>{{ item.name }}</div>
-                     <div class="title">{{ item.title }}</div>
-                   </div>
-                 </div>
-               </div>
-
-             </div>
-           </div>
-           <div>
-             <div class="column bao m-3" v-for="item in imageList3" :key="item.id">
-               <div class="bao" @click="openDialog(item)">
-                 <img :src="item.image" class="img img-big">
-                 <i class="fa-regular fa-heart tim"></i>
-                 <i class="fa-solid fa-plus them"></i>
-                 <div class="khung-avt">
-                   <img class="avt" :src="item.avt"/>
-                   <div>
-                     <div>{{ item.name }}</div>
-                     <div class="title">{{ item.title }}</div>
-                   </div>
-                 </div>
-               </div>
-
-             </div>
-           </div>
-         </div>
+          <div class="container">
+            <div>
+              <div class="column bao m-3" v-for="item in imageList" :key="item.id">
+                <div class="bao" @click="openDialog(item)">
+                  <img :src="item.image" class="img img-big">
+                  <i class="fa-regular fa-heart tim"
+                     :class="{ 'red-heart': item.isLiked }"
+                     @click.stop="toggleLike(item)">
+                  </i>
+                  <i class="fa-solid fa-plus them"></i>
+                  <div class="khung-avt">
+                    <img class="avt" :src="item.avt"/>
+                    <div>
+                      <div>{{ item.name }}</div>
+                      <div class="title">{{ item.title }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="column bao m-3" v-for="item in imageList2" :key="item.id">
+                <div class="bao" @click="openDialog(item)">
+                  <img :src="item.image" class="img img-big">
+                  <i class="fa-regular fa-heart tim"
+                     :class="{ 'red-heart': item.isLiked }"
+                     @click.stop="toggleLike(item)">
+                  </i>
+                  <i class="fa-solid fa-plus them"></i>
+                  <div class="khung-avt">
+                    <img class="avt" :src="item.avt"/>
+                    <div>
+                      <div>{{ item.name }}</div>
+                      <div class="title">{{ item.title }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="column bao m-3" v-for="item in imageList3" :key="item.id">
+                <div class="bao" @click="openDialog(item)">
+                  <img :src="item.image" class="img img-big">
+                  <i class="fa-regular fa-heart tim"
+                     :class="{ 'red-heart': item.isLiked }"
+                     @click.stop="toggleLike(item)">
+                  </i>
+                  <i class="fa-solid fa-plus them"></i>
+                  <div class="khung-avt">
+                    <img class="avt" :src="item.avt"/>
+                    <div>
+                      <div>{{ item.name }}</div>
+                      <div class="title">{{ item.title }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <template #footer>
           <div class="dialog-footer">
@@ -151,30 +174,142 @@ const dialogVisible = ref(false)
 const selectedItem = ref('');
 const img2 = ref('/img2.jpg');
 const openDialog = (item) => {
+  item.views += 1;
+  // item.views = +1; đây là code sai
+
   selectedItem.value = item;
   selectedItem.value.dialogVisible = true;
 };
-
+const toggleLike = (item) => {
+  item.isLiked = !item.isLiked;
+  console.log(item.isLiked); // Đảm bảo rằng giá trị đã được chuyển đổi
+}
 const imageList = ref([
-  {id: 1, image: '/img1.jpg', name: 'NEM', title: 'made to change', avt: '/img2.jpg'},
-  {id: 2, image: '/img2.jpg', name: 'HORRO', title: 'made to change', avt: '/img3.jpg'},
-  {id: 3, image: '/img3.jpg', name: 'ANNA', title: 'made to change', avt: '/img2.jpg'},
-  {id: 4, image: '/img1.jpg', name: 'JOIN', title: 'made to change', avt: '/img2.jpg'},
+  {
+    id: 1,
+    image: 'https://images.unsplash.com/photo-1708649290066-5f617003b93f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'NEM',
+    title: 'made to change',
+    isLiked: false,
+    views: 0,
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
+  {
+    id: 2,
+    image: 'https://plus.unsplash.com/premium_photo-1673127326756-d065bce2f85e?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'HORRO',
+    title: 'made to change',
+    isLiked: false,
+    views: 0,
+
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
+  {
+    id: 3,
+    image: 'https://images.unsplash.com/photo-1708649290066-5f617003b93f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'ANNA',
+    title: 'made to change',
+    isLiked: false,
+    views: 0,
+
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
+  {
+    id: 4,
+    image: 'https://images.unsplash.com/photo-1708947513411-30a04b57b53c?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'JOIN',
+    title: 'made to change',
+    isLiked: false,
+    views: 0,
+
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
 
 ])
 const imageList2 = ref([
-  {id: 1, image: '/img5.jpg', name: 'NEM', title: 'made to change', avt: '/img5.jpg'},
-  {id: 2, image: '/img6.jpg', name: 'HORRO', title: 'made to change', avt: '/img6.jpg'},
-  {id: 3, image: '/img7.jpg', name: 'ANNA', title: 'made to change', avt: '/img2.jpg'},
-  {id: 4, image: '/img8.jpg', name: 'JOIN', title: 'made to change', avt: '/img2.jpg'},
-  {id: 5, image: '/img9.jpg', name: 'HORRO', title: 'made to change', avt: '/img2.jpg'},
+  {
+    id: 1,
+    image: 'https://images.unsplash.com/photo-1708947513411-30a04b57b53c?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'NEM',
+    isLiked: false,
+    views: 0,
+
+    title: 'made to change',
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
+  {
+    id: 2,
+    image: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'HORRO',
+    isLiked: false,
+    views: 0,
+
+    title: 'made to change',
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
+  {
+    id: 3,
+    image: 'https://images.unsplash.com/photo-1708649290066-5f617003b93f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'ANNA',
+    isLiked: false,
+    views: 0,
+
+    title: 'made to change',
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
+  {
+    id: 4,
+    image: 'https://images.unsplash.com/photo-1708947513411-30a04b57b53c?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'JOIN',
+    isLiked: false,
+    views: 0,
+
+    title: 'made to change',
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
 
 ])
 const imageList3 = ref([
-  {id: 1, image: '/img20.jpg', name: 'NEM', title: 'made to change', avt: '/img5.jpg'},
-  {id: 2, image: '/img6.jpg', name: 'HORRO', title: 'made to change', avt: '/img6.jpg'},
-  {id: 3, image: '/img1.jpg', name: 'ANNA', title: 'made to change', avt: '/img2.jpg'},
-  {id: 4, image: '/img7.jpg', name: 'JOIN', title: 'made to change', avt: '/img2.jpg'},
+  {
+    id: 1,
+    image: 'https://plus.unsplash.com/premium_photo-1673127326756-d065bce2f85e?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'NEM',
+    isLiked: false,
+    views: 0,
+
+    title: 'made to change',
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
+  {
+    id: 2,
+    image: 'https://images.unsplash.com/photo-1708649290066-5f617003b93f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'HORRO',
+    isLiked: false,
+    views: 0,
+
+    title: 'made to change',
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
+  {
+    id: 3,
+    image: 'https://images.unsplash.com/photo-1708917880580-a6bea5c232a1?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'ANNA',
+    isLiked: false,
+    views: 0,
+
+    title: 'made to change',
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
+  {
+    id: 4,
+    image: 'https://images.unsplash.com/photo-1708923806194-0036d90971b5?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    name: 'JOIN',
+    isLiked: false,
+    views: 0,
+
+    title: 'made to change',
+    avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+  },
 
 ])
 </script>
@@ -196,6 +331,10 @@ const imageList3 = ref([
   top: 0;
 }
 
+.red-heart {
+  color: red;
+}
+
 .khung-modal {
   position: absolute;
   top: 10px;
@@ -205,7 +344,11 @@ const imageList3 = ref([
   gap: 10px;
   color: white;
 }
+h2{
+  padding-top: 10px;
+  padding-bottom: 10px;
 
+}
 .khung-avt {
   display: flex;
   align-items: center;
@@ -238,13 +381,9 @@ const imageList3 = ref([
   padding-top: 3px;
 }
 
-.tim {
-  display: none;
-}
 
 .them {
   display: none;
-
 }
 
 .tim {
@@ -255,9 +394,7 @@ const imageList3 = ref([
   padding: 10px 14px;
   border-radius: 5px;
   font-size: 18px;
-  color: red;
-//cursor: pointer;
-
+  cursor: pointer;
 }
 
 .them {
@@ -325,7 +462,6 @@ const imageList3 = ref([
   padding: 7px 13px;
   border-radius: 5px;
   font-size: 14px;
-  color: gray;
   border: 1px solid gray;
 //cursor: pointer;
 
@@ -339,7 +475,6 @@ const imageList3 = ref([
   padding: 7px 13px;
   border-radius: 5px;
   font-size: 14px;
-  color: gray;
   border: 1px solid gray;
 //cursor: pointer;
 

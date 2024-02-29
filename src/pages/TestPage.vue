@@ -79,6 +79,10 @@
 <!--const nextPage = () => {-->
 <!--  if (name.value === 'admin' && name1.value === '123456') {-->
 <!--    return router.push('/home')-->
+
+<!--//.tim {-->
+<!--//  display: none;-->
+<!--//}-->
 <!--  }-->
 <!--  return console.log('lỗi r')-->
 
