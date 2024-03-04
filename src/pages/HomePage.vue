@@ -10,13 +10,23 @@
                @click.stop="toggleLike(item)">
             </i>
             <i class="fa-solid fa-plus them"></i>
-            <div class="khung-avt">
-              <img class="avt" :src="item.avt"/>
-              <div>
-                <div>{{ item.name }}</div>
-                <div class="title">{{ item.title }}</div>
-              </div>
-            </div>
+                        <router-link to="/test" class="khung-avt" >
+                          <img class="avt" :src="item.avt"/>
+                          <div>
+                            <div>{{ item.name }}</div>
+                            <div class="title">{{ item.title }}</div>
+                          </div>
+                        </router-link>
+<!--            <router-link :to="{-->
+<!--  name: 'test',-->
+<!--  query: {-->
+<!--    title: item.title, // Thay [0] bằng index của phần tử bạn muốn truy cập-->
+<!--    image: item.image  // Thay [0] bằng index của phần tử bạn muốn truy cập-->
+<!--  }-->
+<!--}">-->
+<!--              Go to Test-->
+<!--            </router-link>-->
+            <i class="fa-solid fa-arrow-down tai" @click.stop="DowloadeImage(item)"></i>
           </div>
         </div>
       </div>
@@ -36,6 +46,7 @@
                 <div class="title">{{ item.title }}</div>
               </div>
             </div>
+            <i class="fa-solid fa-arrow-down tai" @click.stop="DowloadeImage(item)"></i>
           </div>
 
         </div>
@@ -56,8 +67,9 @@
                 <div class="title">{{ item.title }}</div>
               </div>
             </div>
-          </div>
+            <i class="fa-solid fa-arrow-down tai" @click.stop="DowloadeImage(item)"></i>
 
+          </div>
         </div>
       </div>
       <el-dialog
@@ -192,6 +204,7 @@ const imageList = ref([
     title: 'made to change',
     isLiked: false,
     views: 0,
+    description: 'Lượt đoạn đầu: Tác giả trình bày mục đích chuyến đi thực tế Tây Bắc và sông Đà của mình chủ yếu là để tìm hiểu những con người ở đây mà ông gọi “thứ vàng mười đã qua thử lửa của cách mạng là kháng chiến, hiện nay đang góp phần vào việc đến thiết Tây Bắc.',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
@@ -201,7 +214,7 @@ const imageList = ref([
     title: 'made to change',
     isLiked: false,
     views: 0,
-
+    description: 'Lượt đoạn đầu: Tác giả trình bày mục đích chuyến đi thực tế Tây Bắc và sông Đà của mình chủ yếu là để tìm hiểu những con người ở đây mà ông gọi “thứ vàng mười đã qua thử lửa của cách mạng là kháng chiến, hiện nay đang góp phần vào việc đến thiết Tây Bắc.',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
@@ -211,7 +224,7 @@ const imageList = ref([
     title: 'made to change',
     isLiked: false,
     views: 0,
-
+    description: 'Lượt đoạn đầu: Tác giả trình bày mục đích chuyến đi thực tế Tây Bắc và sông Đà của mình chủ yếu là để tìm hiểu những con người ở đây mà ông gọi “thứ vàng mười đã qua thử lửa của cách mạng là kháng chiến, hiện nay đang góp phần vào việc đến thiết Tây Bắc.',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
@@ -221,7 +234,7 @@ const imageList = ref([
     title: 'made to change',
     isLiked: false,
     views: 0,
-
+    description: 'Lượt đoạn đầu: Tác giả trình bày mục đích chuyến đi thực tế Tây Bắc và sông Đà của mình chủ yếu là để tìm hiểu những con người ở đây mà ông gọi “thứ vàng mười đã qua thử lửa của cách mạng là kháng chiến, hiện nay đang góp phần vào việc đến thiết Tây Bắc.',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
 
@@ -233,7 +246,6 @@ const imageList2 = ref([
     name: 'NEM',
     isLiked: false,
     views: 0,
-
     title: 'made to change',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
@@ -243,7 +255,6 @@ const imageList2 = ref([
     name: 'HORRO',
     isLiked: false,
     views: 0,
-
     title: 'made to change',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
@@ -253,7 +264,6 @@ const imageList2 = ref([
     name: 'ANNA',
     isLiked: false,
     views: 0,
-
     title: 'made to change',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
@@ -263,7 +273,6 @@ const imageList2 = ref([
     name: 'JOIN',
     isLiked: false,
     views: 0,
-
     title: 'made to change',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
@@ -276,7 +285,6 @@ const imageList3 = ref([
     name: 'NEM',
     isLiked: false,
     views: 0,
-
     title: 'made to change',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
@@ -286,7 +294,6 @@ const imageList3 = ref([
     name: 'HORRO',
     isLiked: false,
     views: 0,
-
     title: 'made to change',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
@@ -296,7 +303,6 @@ const imageList3 = ref([
     name: 'ANNA',
     isLiked: false,
     views: 0,
-
     title: 'made to change',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
@@ -306,12 +312,27 @@ const imageList3 = ref([
     name: 'JOIN',
     isLiked: false,
     views: 0,
-
     title: 'made to change',
     avt: 'https://plus.unsplash.com/premium_photo-1701181947338-02e4c55514d6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
 
 ])
+const DowloadeImage = (item) => {
+  const anchor = document.createElement('a');
+  anchor.href = item.image;
+  anchor.download = 'test_image.jpg'; // Tên tệp bạn muốn lưu trữ trên máy
+  anchor.target = '_blank'; // Mở liên kết trong một tab mới
+  anchor.click();
+  // const a = document.createElement('a');
+  // a.href = item.image;
+  // a.download = "output.png";
+  // document.body.appendChild(a);
+  // a.click();
+  // document.body.removeChild(a);
+}
+const profileActor = (item) => {
+
+}
 </script>
 
 
@@ -344,11 +365,13 @@ const imageList3 = ref([
   gap: 10px;
   color: white;
 }
-h2{
+
+h2 {
   padding-top: 10px;
   padding-bottom: 10px;
 
 }
+
 .khung-avt {
   display: flex;
   align-items: center;
@@ -386,6 +409,10 @@ h2{
   display: none;
 }
 
+.tai {
+  display: none;
+}
+
 .tim {
   position: absolute;
   top: 10px;
@@ -406,7 +433,19 @@ h2{
   border-radius: 5px;
   font-size: 18px;
   color: black;
-//cursor: pointer;
+  cursor: pointer;
+}
+
+.tai {
+  position: absolute;
+  bottom: 28px;
+  right: 38px;
+  background: white;
+  padding: 9px 17px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: black;
+  cursor: pointer;
 }
 
 .bao {
@@ -422,6 +461,11 @@ h2{
   }
 
   .them {
+    display: block;
+
+  }
+
+  .tai {
     display: block;
 
   }
@@ -466,6 +510,10 @@ h2{
 //cursor: pointer;
 
 
+}
+
+.tim {
+  display: none;
 }
 
 .them-modal {
