@@ -10,22 +10,13 @@
                @click.stop="toggleLike(item)">
             </i>
             <i class="fa-solid fa-plus them"></i>
-                        <router-link to="/test" class="khung-avt" >
-                          <img class="avt" :src="item.avt"/>
-                          <div>
-                            <div>{{ item.name }}</div>
-                            <div class="title">{{ item.title }}</div>
-                          </div>
-                        </router-link>
-<!--            <router-link :to="{-->
-<!--  name: 'test',-->
-<!--  query: {-->
-<!--    title: item.title, // Thay [0] bằng index của phần tử bạn muốn truy cập-->
-<!--    image: item.image  // Thay [0] bằng index của phần tử bạn muốn truy cập-->
-<!--  }-->
-<!--}">-->
-<!--              Go to Test-->
-<!--            </router-link>-->
+            <router-link to="/test" class="khung-avt">
+              <img class="avt" :src="item.avt"/>
+              <div>
+                <div>{{ item.name }}</div>
+                <div class="title">{{ item.title }}</div>
+              </div>
+            </router-link>
             <i class="fa-solid fa-arrow-down tai" @click.stop="DowloadeImage(item)"></i>
           </div>
         </div>
@@ -74,7 +65,8 @@
       </div>
       <el-dialog
           v-model="selectedItem.dialogVisible"
-          width="90%"
+          width="82%"
+          class="modal-chitiet"
       >
         <div class="">
           <div class="">
@@ -86,7 +78,6 @@
               </div>
             </div>
             <div class="bao-tim">
-              <!--              <i class="fa-regular fa-heart tim-modal"></i>-->
               <i class="fa-regular fa-heart tim-modal"
                  :class="{ 'red-heart': selectedItem.isLiked }"
                  @click.stop="toggleLike(selectedItem)">
@@ -96,13 +87,13 @@
               <i class="fa-solid fa-plus them-modal"></i>
             </div>
           </div>
-          <img class="img-modal" :src="selectedItem.image">
-          <div>
+          <img class="img-modal avt-moadal" :src="selectedItem.image">
+          <div class="views">
             Views : {{ selectedItem.views }}
           </div>
-          <h2>
+          <h3 class="lien-quan">
             Related photos
-          </h2>
+          </h3>
           <div class="container">
             <div>
               <div class="column bao m-3" v-for="item in imageList" :key="item.id">
@@ -199,7 +190,7 @@ const toggleLike = (item) => {
 const imageList = ref([
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1708649290066-5f617003b93f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: 'https://plus.unsplash.com/premium_photo-1707030602987-8ca280726bdb?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     name: 'NEM',
     title: 'made to change',
     isLiked: false,
@@ -260,7 +251,7 @@ const imageList2 = ref([
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1708649290066-5f617003b93f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: 'https://plus.unsplash.com/premium_photo-1707030602987-8ca280726bdb?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     name: 'ANNA',
     isLiked: false,
     views: 0,
@@ -320,15 +311,10 @@ const imageList3 = ref([
 const DowloadeImage = (item) => {
   const anchor = document.createElement('a');
   anchor.href = item.image;
-  anchor.download = 'test_image.jpg'; // Tên tệp bạn muốn lưu trữ trên máy
-  anchor.target = '_blank'; // Mở liên kết trong một tab mới
+  anchor.download = 'test_image.jpg';
+  anchor.target = '_blank';
   anchor.click();
-  // const a = document.createElement('a');
-  // a.href = item.image;
-  // a.download = "output.png";
-  // document.body.appendChild(a);
-  // a.click();
-  // document.body.removeChild(a);
+
 }
 const profileActor = (item) => {
 
@@ -340,11 +326,20 @@ const profileActor = (item) => {
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
+}
+
+.avt-moadal {
+  width: 80%;
+  height: 500px;
 }
 
 .name {
   color: black;
+}
+
+.modal-chitiet {
+  margin-top: 10px !important;
+
 }
 
 .header {
@@ -353,7 +348,7 @@ const profileActor = (item) => {
 }
 
 .red-heart {
-  color: red;
+  color: red !important;
 }
 
 .khung-modal {
@@ -371,9 +366,10 @@ h2 {
   padding-bottom: 10px;
 
 }
-
+.khung-avt{
+  display: none;
+}
 .khung-avt {
-  display: flex;
   align-items: center;
   position: absolute;
   gap: 10px;
@@ -389,9 +385,9 @@ h2 {
 }
 
 .img-modal {
-  width: 80%;
-  height: 100%;
-  padding-top: 70px;
+  height: 680px;
+  object-fit: contain;
+  padding-top: 55px;
   margin: 0 auto;
   align-items: center;
   display: flex;
@@ -401,7 +397,6 @@ h2 {
 .title {
   font-size: 12px;
   color: #9c9696;
-  padding-top: 3px;
 }
 
 
@@ -416,23 +411,25 @@ h2 {
 .tim {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 18px;
   background: white;
-  padding: 10px 14px;
+  padding: 8px 11px;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 13px;
   cursor: pointer;
+  color: rgb(118, 118, 118) ;
+
 }
 
 .them {
   position: absolute;
   top: 10px;
-  right: 65px;
+  right: 61px;
   background: white;
-  padding: 10px 14px;
+  padding: 8px 11px;
   border-radius: 5px;
-  font-size: 18px;
-  color: black;
+  font-size: 13px;
+  color: rgb(118, 118, 118);
   cursor: pointer;
 }
 
@@ -441,10 +438,11 @@ h2 {
   bottom: 28px;
   right: 38px;
   background: white;
-  padding: 9px 17px;
+  padding: 8px 11px;
   border-radius: 5px;
-  font-size: 14px;
-  color: black;
+  font-size: 13px;
+  color: rgb(118, 118, 118);
+
   cursor: pointer;
 }
 
@@ -459,7 +457,9 @@ h2 {
   .tim {
     display: block;
   }
-
+  .khung-avt {
+    display: flex;
+  }
   .them {
     display: block;
 
@@ -507,6 +507,7 @@ h2 {
   border-radius: 5px;
   font-size: 14px;
   border: 1px solid gray;
+  color: rgb(118, 118, 118) !important;
 //cursor: pointer;
 
 
@@ -546,6 +547,13 @@ h2 {
 
 .show-close {
   display: none;
+}
+.views{
+  color: rgb(118, 118, 118);
+}
+.lien-quan{
+  padding: 20px 0 5px 0;
+  color: black;
 }
 </style>
 

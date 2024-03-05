@@ -14,3 +14,6 @@ a{
   box-sizing: border-box;
   font-family: 'Rubik', sans-serif;
 }
+.el-overlay-dialog .modal-chitiet{
+  margin-top: 12px;
+}
