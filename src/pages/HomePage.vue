@@ -67,11 +67,12 @@
           v-model="selectedItem.dialogVisible"
           width="82%"
           class="modal-chitiet"
+          id="content"
       >
         <div class="">
           <div class="">
             <div class="khung-modal">
-              <img class="avt" :src="selectedItem.avt"/>
+              <img id="content" class="avt" :src="selectedItem.avt"/>
               <div>
                 <div class="name">{{ selectedItem.name }}</div>
                 <div class="title">{{ selectedItem.title }}</div>
@@ -87,7 +88,12 @@
               <i class="fa-solid fa-plus them-modal"></i>
             </div>
           </div>
-          <img class="img-modal avt-moadal" :src="selectedItem.image">
+          <div class="nut">
+            <i @click="luiImage(selectedItem,imageList.length)" class="fas fa-arrow-left"></i>
+            <img class="img-modal avt-moadal" :src="selectedItem.image" ref="imageRef">
+            <i @click="nextImage(selectedItem.id, imageList.length)" class="fas fa-arrow-right"></i>
+
+          </div>
           <div class="views">
             Views : {{ selectedItem.views }}
           </div>
@@ -98,7 +104,7 @@
             <div>
               <div class="column bao m-3" v-for="item in imageList" :key="item.id">
                 <div class="bao" @click="openDialog(item)">
-                  <img :src="item.image" class="img img-big">
+                  <img :src="item.image" id="pokemons" class="img img-big">
                   <i class="fa-regular fa-heart tim"
                      :class="{ 'red-heart': item.isLiked }"
                      @click.stop="toggleLike(item)">
@@ -117,7 +123,7 @@
             <div>
               <div class="column bao m-3" v-for="item in imageList2" :key="item.id">
                 <div class="bao" @click="openDialog(item)">
-                  <img :src="item.image" class="img img-big">
+                  <img :src="item.image" ref="bottomEl" class="img img-big">
                   <i class="fa-regular fa-heart tim"
                      :class="{ 'red-heart': item.isLiked }"
                      @click.stop="toggleLike(item)">
@@ -179,13 +185,14 @@ const img2 = ref('/img2.jpg');
 const openDialog = (item) => {
   item.views += 1;
   // item.views = +1; đây là code sai
-
   selectedItem.value = item;
   selectedItem.value.dialogVisible = true;
+  const element = document.getElementById("content");
+  element.scrollIntoView({behavior: 'smooth'});
 };
 const toggleLike = (item) => {
   item.isLiked = !item.isLiked;
-  console.log(item.isLiked); // Đảm bảo rằng giá trị đã được chuyển đổi
+  console.log(item.isLiked);
 }
 const imageList = ref([
   {
@@ -316,9 +323,21 @@ const DowloadeImage = (item) => {
   anchor.click();
 
 }
-const profileActor = (item) => {
+const nextImage = (currentIndex, arrayLength) => {
+  console.log('Current Index:', currentIndex);
+  console.log('Array Length:', arrayLength);
 
-}
+  let nextIndex = currentIndex + 1;
+
+  if (nextIndex > arrayLength) {
+    nextIndex = 1;
+  }
+  console.log('Next Index:', nextIndex);
+  return nextIndex;
+};
+
+
+
 </script>
 
 
@@ -326,6 +345,11 @@ const profileActor = (item) => {
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.nut {
+  display: flex;
+  align-items: center;
 }
 
 .avt-moadal {
@@ -347,6 +371,14 @@ const profileActor = (item) => {
   top: 0;
 }
 
+.fa-arrow-left {
+  font-size: 22px;
+}
+
+.fa-arrow-right {
+  font-size: 22px;
+}
+
 .red-heart {
   color: red !important;
 }
@@ -366,9 +398,11 @@ h2 {
   padding-bottom: 10px;
 
 }
-.khung-avt{
+
+.khung-avt {
   display: none;
 }
+
 .khung-avt {
   align-items: center;
   position: absolute;
@@ -417,7 +451,7 @@ h2 {
   border-radius: 5px;
   font-size: 13px;
   cursor: pointer;
-  color: rgb(118, 118, 118) ;
+  color: rgb(118, 118, 118);
 
 }
 
@@ -457,9 +491,11 @@ h2 {
   .tim {
     display: block;
   }
+
   .khung-avt {
     display: flex;
   }
+
   .them {
     display: block;
 
@@ -507,10 +543,8 @@ h2 {
   border-radius: 5px;
   font-size: 14px;
   border: 1px solid gray;
-  color: rgb(118, 118, 118) !important;
-//cursor: pointer;
-
-
+  color: rgb(118, 118, 118);
+  cursor: pointer;
 }
 
 .tim {
@@ -548,10 +582,12 @@ h2 {
 .show-close {
   display: none;
 }
-.views{
+
+.views {
   color: rgb(118, 118, 118);
 }
-.lien-quan{
+
+.lien-quan {
   padding: 20px 0 5px 0;
   color: black;
 }
